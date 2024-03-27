@@ -82,13 +82,19 @@ function App() {
     e.preventDefault();
     console.log("save", id);
     // Replace with BE action and reload
+    const now = new Date();
     setData(
-      data.map((item) => (item.id === id ? { ...item, editing: false } : item)),
+      data.map((item) =>
+        item.id === id
+          ? { ...item, editing: false, edited: String(now) }
+          : item,
+      ),
     );
   };
 
   const getNewId = (id) => {
     // This will come from BE
+    console.log("getNewId", id);
     return Math.max(...data.map((o) => o.id)) + 1;
   };
 
@@ -100,9 +106,18 @@ function App() {
     ) {
       // Replace with BE action and reload
       const newData = [];
+
+      const now = new Date();
+
       data.forEach((item) => {
         newData.push(item);
-        if (item.id === id) newData.push({ ...item, id: getNewId(id) });
+        if (item.id === id)
+          newData.push({
+            ...item,
+            id: getNewId(id),
+            created: String(now),
+            edited: String(now),
+          });
       });
       setData(newData);
     }
@@ -121,10 +136,41 @@ function App() {
     }
   };
 
+  const addTodo = (e) => {
+    e.preventDefault();
+    console.log("addTodo");
+
+    // Replace with BE action and reload
+
+    let highestId = 0;
+
+    data.forEach((item) => {
+      highestId = Math.max(highestId, item.id);
+    });
+
+    const now = new Date();
+
+    setData([
+      ...data,
+      {
+        id: highestId + 1,
+        done: false,
+        editing: true,
+        title: "",
+        details: "",
+        created: String(now),
+        edited: String(now),
+      },
+    ]);
+  };
+
   return (
     <div className="App">
       <header className="App-header">
-        <h1>TODO LIST</h1>
+        <h1>
+          TODO LIST
+          {` ${data.filter((item) => item.done).length}/${data.length}`}
+        </h1>
       </header>
       <main>
         <ol>
@@ -140,6 +186,7 @@ function App() {
                   {item.editing ? (
                     <input
                       type="text"
+                      placeholder="What should you do?"
                       value={item.title}
                       readOnly={!item.editing}
                       onChange={(e) => editTitle(item.id, e)}
@@ -152,6 +199,7 @@ function App() {
                 <fieldset className="details">
                   {item.editing ? (
                     <textarea
+                      placeholder="Some details..."
                       value={item.details}
                       onChange={(e) => editDetails(item.id, e)}
                     ></textarea>
@@ -189,10 +237,7 @@ function App() {
                     Duplicate
                   </button>
 
-                  <button
-                    onClick={(e) => deleteTodo(item.id, e)}
-                    disabled={item.editing}
-                  >
+                  <button onClick={(e) => deleteTodo(item.id, e)}>
                     Delete
                   </button>
                 </fieldset>
@@ -200,6 +245,9 @@ function App() {
             </li>
           ))}
         </ol>
+        <button onClick={(e) => addTodo(e)} className="add-todo">
+          Add TODO
+        </button>
       </main>
       <footer>© Colibri Digital 2024</footer>
     </div>
