@@ -115,6 +115,13 @@ form {
         padding: 0.5em;
       }
     }
+
+    &.responsive {
+      @media only screen and (max-width: 600px) {
+        display: flex;
+        flex-direction: column;
+      }
+    }
   }
 }
 
@@ -131,4 +138,5 @@ ol {
 
 .add-todo {
   padding: 1em;
+  width: 100%;
 }

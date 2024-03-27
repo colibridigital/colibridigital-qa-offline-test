@@ -217,7 +217,7 @@ function App() {
                   )}
                 </fieldset>
 
-                <fieldset className="dates">
+                <fieldset className="dates responsive">
                   <p>
                     <span>ID: </span>
                     <span>{item.id}</span>
@@ -232,7 +232,7 @@ function App() {
                   </p>
                 </fieldset>
 
-                <fieldset className="buttons">
+                <fieldset className="buttons responsive">
                   {item.editing ? (
                     <button onClick={(e) => saveTodo(item.id, e)}>Save</button>
                   ) : (
