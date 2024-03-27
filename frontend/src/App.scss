@@ -1,3 +1,6 @@
+// https://fonts.google.com/noto/specimen/Noto+Sans
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap");
+
 body {
   margin: 0;
   padding: 0;
@@ -38,12 +41,17 @@ body {
 }
 
 * {
-  font-family: Arial, sans-serif;
+  font-family: "Inter", sans-serif;
+  font-weight: 300;
 }
 
 button {
   user-select: none;
   cursor: pointer;
+  outline: 0;
+  border: 0;
+  border-radius: 99px;
+  font-weight: 500;
 }
 
 h1,
@@ -120,6 +128,14 @@ form {
       @media only screen and (max-width: 600px) {
         display: flex;
         flex-direction: column;
+
+        button {
+          margin-right: 0;
+        }
+
+        button ~ button {
+          margin-top: 8px;
+        }
       }
     }
   }
