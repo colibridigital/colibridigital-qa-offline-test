@@ -1,0 +1,5 @@
+-r test.txt
+
+django-extensions>=3.2.3
+ipdb
+werkzeug==3.0.1
