@@ -2,7 +2,14 @@
 
 All the source code is under Colibri Digital terms and conditions and it must be followed.
 
-Note: All the views provided in this project are `RESTful` APIs using `Django Rest Framework`.
+## Test notes
+
+All the views provided in this project are `RESTful` APIs using `Django Rest Framework`.
+The view have no authentication method attached to make it simpler to start with but **it can be changed**
+if it is required.
+
+The views and functionalities might or might not be optimised and structured. It is up to you
+to decide if this statement is true or not and change it accordingly.
 
 ## Requirements
 
