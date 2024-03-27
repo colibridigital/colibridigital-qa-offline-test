@@ -213,7 +213,9 @@ function App() {
                       onChange={(e) => editDetails(item.id, e)}
                     ></textarea>
                   ) : (
-                    <p>{item.details}</p>
+                    <p style={item.details ? { opacity: 1 } : { opacity: 0.4 }}>
+                      {item.details || "(no details)"}
+                    </p>
                   )}
                 </fieldset>
 
@@ -234,7 +236,12 @@ function App() {
 
                 <fieldset className="buttons responsive">
                   {item.editing ? (
-                    <button onClick={(e) => saveTodo(item.id, e)}>Save</button>
+                    <button
+                      onClick={(e) => saveTodo(item.id, e)}
+                      disabled={!item.title}
+                    >
+                      Save
+                    </button>
                   ) : (
                     <button onClick={(e) => editTodo(item.id, e)}>Edit</button>
                   )}
