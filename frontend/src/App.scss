@@ -3,4 +3,101 @@ body {
   padding: 0;
   background-color: black;
   color: white;
+  height: 100vh;
+
+  .App {
+    height: 100vh;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+
+    header {
+      height: 80px;
+    }
+
+    main {
+      overflow-x: hidden;
+      overflow-y: auto;
+      height: 100vh;
+    }
+
+    footer {
+      height: 40px;
+    }
+
+    header,
+    footer {
+      padding: 0.5em;
+      background-color: darkblue;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+  }
+}
+
+* {
+  font-family: Arial, sans-serif;
+}
+
+h1,
+h2 {
+  padding: 0;
+  margin: 0;
+}
+
+form {
+  background-color: darkslateblue;
+
+  &.done {
+    background-color: darkgreen;
+  }
+
+  fieldset {
+    border: 0;
+    padding: 0 16px 16px 16px;
+    display: flex;
+
+    > * {
+      margin-right: 1em;
+    }
+
+    &.title {
+      background-color: slateblue;
+      font-size: 2em;
+      padding: 0.25em;
+
+      input[type="checkbox"] {
+        width: 30px;
+        height: 30px;
+      }
+
+      &.done {
+        background-color: green;
+      }
+    }
+
+    &.details {
+      font-size: 1.5em;
+      padding: 16px;
+      border-bottom: 1px dotted black;
+
+      p {
+        margin: 0;
+      }
+    }
+
+    &.dates {
+      opacity: 0.6;
+      font-size: 0.7em;
+      padding-bottom: 8px;
+    }
+  }
+}
+
+ol {
+  list-style-type: none;
+  li {
+    margin: 2em;
+  }
 }
