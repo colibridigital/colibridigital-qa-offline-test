@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./App.scss";
 
 function App() {
@@ -29,12 +29,21 @@ function App() {
     },
   ];
 
-  const [data, setData] = useState(
-    mockData.map((item) => ({
-      ...item,
-      editing: false,
-    })),
-  );
+  const [data, setData] = useState([]);
+
+  const readData = () => {
+    setData(
+      mockData.map((item) => ({
+        ...item,
+        editing: false,
+      })),
+    );
+  };
+
+  useEffect(() => {
+    readData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const getTodo = (id) => {
     return data.find((item) => item.id === id);
