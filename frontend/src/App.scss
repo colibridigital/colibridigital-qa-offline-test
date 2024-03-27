@@ -52,6 +52,16 @@ button {
   border: 0;
   border-radius: 99px;
   font-weight: 500;
+  transition: opacity 0.2s ease;
+  &:hover {
+    opacity: 0.85;
+  }
+  &[disabled] {
+    &:hover {
+      opacity: initial;
+    }
+    cursor: not-allowed;
+  }
 }
 
 h1,
@@ -123,6 +133,7 @@ form {
       button {
         min-width: 120px;
         padding: 0.5em;
+        flex: 1;
       }
     }
 
