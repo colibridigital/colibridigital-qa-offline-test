@@ -223,7 +223,7 @@ function App() {
                   </p>
                 </fieldset>
 
-                <fieldset>
+                <fieldset className="buttons">
                   {item.editing ? (
                     <button onClick={(e) => saveTodo(item.id, e)}>Save</button>
                   ) : (
