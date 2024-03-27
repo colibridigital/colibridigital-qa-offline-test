@@ -1,0 +1,11 @@
+-r base.txt
+
+coverage
+django-webtest
+factory_boy
+freezegun==0.3.10
+mock==3.0.5
+pytest-django
+pytest-pspec
+unittest-data-provider==1.0.1
+webtest

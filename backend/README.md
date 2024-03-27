@@ -1,5 +1,9 @@
 # Backend side of the QA test
 
+All the source code is under Colibri Digital terms and conditions and it must be followed.
+
+Note: All the views provided in this project are `RESTful` APIs using `Django Rest Framework`.
+
 ## Requirements
 
 * Python 3.10+
@@ -43,7 +47,7 @@ $ make requirements
 Alternatively, if you don't want to use this or are using something else:
 
 ```shell
-$ pip install -r requirements.txt
+$ pip install -r requirements/development.txt
 ```
 
 ### Start the docker environment
@@ -61,3 +65,55 @@ Once the volume is create or if already exists, then run:
 $ docker compose up -d # if you want to detach the logs
 $ docker compose up # if you want the logs to be visible to you
 ```
+
+### Run the initial migrations
+
+You will need all the models to be reflected in the database, so, run:
+
+```shell
+$ make migrate
+```
+
+#### Generate any migration
+
+If you wish to generate any migration you can also run:
+
+```shell
+$ make makemigrations
+```
+
+### Load the initial mock data
+
+Colibri provides some initial mock data to help you out with the initial process. To load the
+data, run:
+
+```shell
+$ make load_data
+```
+
+### Start the development server
+
+To make it simpler and easier to start the local development with unique development settings,
+run:
+
+```shell
+$ make run
+```
+
+These are just additional settings that will allow you to run the server using `django-extensions`
+and nothing else special. You can ignore this and run directly:
+
+```shell
+$ python colibri/manage.py runserver
+```
+
+### Access the Swagger
+
+You can now access the project OpenAPI documentation by accessing:
+
+* **Swagger** - `http://localhost:8000/docs/swagger/`
+* **Redoc** - `http://localhost:8000/docs/redoc/`
+
+## Notes
+
+This backend is for the purposes of testing and **should not be used in production** or **shared with anyone**.

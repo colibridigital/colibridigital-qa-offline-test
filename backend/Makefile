@@ -15,17 +15,35 @@ clean_pyc: ## Cleans all *.pyc in the system
 clean_pycache: ## Removes the __pycaches__
 	find . -type d -name "*__pycache__*" -delete
 
-.PHONY: run
-run: ## Starts the local server with production settings
-	ESMERALD_SETTINGS_MODULE=mercury.configs.development.settings.DevelopmentAppSettings esmerald runserver
+.PHONY: migrate
+migrate: # Runs the migrations
+	python colibri/manage.py migrate --noinput
 
-.PHONY: test
-test: ## Runs the local tests with nose
-	ESMERALD_SETTINGS_MODULE=mercury.configs.testing.settings.TestingAppSettings pytest --disable-warnings -s $(TESTONLY)
+.PHONY: migrations
+migrations: ## Generate migrations
+	python colibri/manage.py makemigrations
 
 .PHONY: requirements
 requirements: ## Installs the requirements
-	pip install -r requirements.txt
+	pip install -r requirements/development.txt
+
+.PHONY: test
+test: ## Runs the unit tests from the scratch by recreating the testing database
+	cd colibri 										&&\
+	pytest $(TESTONLY) --disable-pytest-warnings -s -vv $(DB)				&&\
+	cd .
+
+.PHONY: load_data
+load_data: ## Loads the initial data
+	python colibri/manage.py load_data
+
+.PHONY: shell
+shell:
+	DJANGO_SETTINGS_MODULE=colibri.development.settings python colibri/manage.py shell_plus
+
+.PHONY: run
+run: ## Starts the dev server
+	DJANGO_SETTINGS_MODULE=colibri.development.settings python colibri/manage.py runserver_plus 0.0.0.0:8000
 
 ifndef VERBOSE
 .SILENT:
