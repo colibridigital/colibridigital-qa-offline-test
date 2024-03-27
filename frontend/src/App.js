@@ -177,7 +177,7 @@ function App() {
     <div className="App">
       <header className="App-header">
         <h1>
-          TODO LIST
+          TO DO LIST
           {` ${data.filter((item) => item.done).length}/${data.length}`}
         </h1>
       </header>
