@@ -124,17 +124,17 @@ This backend is for the purposes of testing and **should not be used in producti
 ### In a new tab:
 
 ```shell
-$ python -m venv venv
-$ source venv/bin/activate
-$ pip install -r requirements/development.txt
-$ docker volume create colibri
-$ docker compose up
+python -m venv venv
+source venv/bin/activate
+pip install -r requirements/development.txt
+docker volume create colibri
+docker compose up
 ```
 
 ### In another tab:
 
 ```shell
-$ source venv/bin/activate
-$ make migrate
-$ make run
+source venv/bin/activate
+make migrate
+make run
 ```
