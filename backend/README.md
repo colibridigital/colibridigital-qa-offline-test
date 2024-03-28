@@ -34,8 +34,6 @@ There are many ways of creating a virtual environment in Python and it is up to 
 1. [Virtualenvwrapper](https://formulae.brew.sh/formula/virtualenvwrapper) - Installed via `brew`.
 2. [Pyenv](https://github.com/pyenv/pyenv)
 3. [Venv](https://docs.python.org/3/library/venv.html) - Native from python.
-   python -m venv venv
-   source venv/bin/activate
 
 ### Activate the virtual environment
 
@@ -120,3 +118,23 @@ You can now access the project OpenAPI documentation by accessing:
 ## Notes
 
 This backend is for the purposes of testing and **should not be used in production** or **shared with anyone**.
+
+# Quick install example:
+
+### In a new tab:
+
+```shell
+$ python -m venv venv
+$ source venv/bin/activate
+$ pip install -r requirements/development.txt
+$ docker volume create colibri
+$ docker compose up
+```
+
+### In another tab:
+
+```shell
+$ source venv/bin/activate
+$ make migrate
+$ make run
+```
