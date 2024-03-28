@@ -13,8 +13,8 @@ to decide if this statement is true or not and change it accordingly.
 
 ## Requirements
 
-* Python 3.10+
-* Docker
+- Python 3.10+
+- Docker
 
 ## Installation
 
@@ -23,25 +23,23 @@ easier to start the project quickly.
 
 ### Install docker
 
-Make sure you have `docker` installed. You can follow the instructions in their [official documentation](https://docs.docker.com/get-docker/)
-and choose the appropriate installation for your OS.
+Make sure you have `docker` installed. You can follow the instructions in their [official documentation](https://docs.docker.com/get-docker/) and choose the appropriate installation for your OS.
 
 ### Virtual environment
 
-You are free to skip this step if you are familiar with the ways of Python but we **strongly** recommend
-the use of a virtual environment to isolate the requirements needed to start the project.
+You are free to skip this step if you are familiar with the ways of Python but we **strongly** recommend the use of a virtual environment to isolate the requirements needed to start the project. Add the virtual environment folder to te backend `.gitignore`.
 
-There are many ways of creating a virtual environment in Python and it is up to you to choose what it
-suits you best. We can only suggest a few ways.
+There are many ways of creating a virtual environment in Python and it is up to you to choose what it suits you best. We can only suggest a few ways.
 
 1. [Virtualenvwrapper](https://formulae.brew.sh/formula/virtualenvwrapper) - Installed via `brew`.
 2. [Pyenv](https://github.com/pyenv/pyenv)
 3. [Venv](https://docs.python.org/3/library/venv.html) - Native from python.
+   python -m venv venv
+   source venv/bin/activate
 
 ### Activate the virtual environment
 
-Since the virtual environment might differ from each person, please follow the instructions how
-to activate the virtal environment from the installation you have chosen to use.
+Since the virtual environment might differ from each person, please follow the instructions how to activate the virtal environment from the installation you have chosen to use.
 
 ### Install the requirements
 
@@ -59,8 +57,7 @@ $ pip install -r requirements/development.txt
 
 ### Start the docker environment
 
-If you are using the project for the first time, you will need to create an *external volume* to
-persist data and work with local environment. To it so, run:
+If you are using the project for the first time, you will need to create an _external volume_ to persist data and work with local environment. To it so, run:
 
 ```shell
 $ docker volume create colibri
@@ -91,8 +88,7 @@ $ make makemigrations
 
 ### Load the initial mock data
 
-Colibri provides some initial mock data to help you out with the initial process. To load the
-data, run:
+Colibri provides some initial mock data to help you out with the initial process. To load the data, run:
 
 ```shell
 $ make load_data
@@ -118,8 +114,8 @@ $ python colibri/manage.py runserver
 
 You can now access the project OpenAPI documentation by accessing:
 
-* **Swagger** - `http://localhost:8000/docs/swagger/`
-* **Redoc** - `http://localhost:8000/docs/redoc/`
+- **Swagger** - `http://localhost:8000/docs/swagger/`
+- **Redoc** - `http://localhost:8000/docs/redoc/`
 
 ## Notes
 

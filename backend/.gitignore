@@ -27,3 +27,5 @@ target/
 .python-version
 coverage.*
 example.sqlite
+
+/venv

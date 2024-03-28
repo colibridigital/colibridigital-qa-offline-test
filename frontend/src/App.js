@@ -2,47 +2,31 @@ import React, { useState, useEffect } from "react";
 import "./App.scss";
 
 function App() {
-  const mockData = [
-    {
-      id: 1,
-      done: true,
-      title: "Buy milk",
-      details: "1l of milk",
-      created: "2024-02-20:10-23-56",
-      edited: "2024-02-20:11-11-11",
-    },
-    {
-      id: 2,
-      done: false,
-      title: "Buy cookies",
-      details: "6 chocolate chip cookies",
-      created: "2024-02-20:10-33-56",
-      edited: "2024-02-20:10-33-56",
-    },
-    {
-      id: 3,
-      done: false,
-      title: "Eat milk and cookies",
-      details: "Yum!",
-      created: "2024-02-20:10-43-56",
-      edited: "2024-02-20:10-33-56",
-    },
-  ];
-
   const [data, setData] = useState([]);
 
-  const readData = () => {
-    setData(
-      mockData.map((item) => ({
-        ...item,
-        editing: false,
-      })),
-    );
+  const makeAPICall = async () => {
+    try {
+      const response = await fetch("http://localhost:8000/items/", {
+        mode: "no-cors",
+      });
+      const { data } = await response.json();
+
+      if (data) {
+        console.log(data);
+        setData(
+          data.map((item) => ({
+            ...item,
+            editing: false,
+          })),
+        );
+      }
+    } catch (e) {
+      console.log(e);
+    }
   };
 
   useEffect(() => {
-    readData();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    makeAPICall();
   }, []);
 
   const getTodo = (id) => {
