@@ -121,6 +121,8 @@ This backend is for the purposes of testing and **should not be used in producti
 
 # Quick install example:
 
+`/venv` has been included in `backend/.gitignore`
+
 ### In a new tab:
 
 ```shell
