@@ -82,15 +82,20 @@ function App() {
   const saveTodo = (id, e) => {
     e.preventDefault();
     console.log("save", id);
-    // Replace with BE action and reload
-    const now = new Date();
-    setData(
-      data.map((item) =>
-        item.id === id
-          ? { ...item, editing: false, edited: String(now) }
-          : item,
-      ),
-    );
+
+    fetch(`${API}/items/${id}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        done: getTodo(id).done,
+        title: getTodo(id).title,
+        details: getTodo(id).details,
+      }),
+    }).then(() => {
+      getTodos();
+    });
   };
 
   const getNewId = (id) => {
