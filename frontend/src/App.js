@@ -6,26 +6,33 @@ function App() {
 
   const [data, setData] = useState([]);
 
-  const getTodos = async (props) => {
+  const getTodos = async (editLatest) => {
     try {
       const response = await fetch(`${API}/items/`);
 
-      const data = await response.json();
+      const responseData = await response.json();
 
       let highestId = -1;
 
-      data.forEach((item) => (highestId = Math.max(highestId, item.id)));
+      responseData.forEach(
+        (item) => (highestId = Math.max(highestId, item.id)),
+      );
 
-      console.log(data);
-      if (data) {
-        console.log(data);
+      console.log(responseData);
+      if (responseData) {
+        console.table(responseData);
         setData(
-          data.map((item) => ({
-            ...item,
-            title: props?.editLatest ? "" : item.title,
-            details: props?.editLatest ? "" : item.details,
-            editing: props?.editLatest ? highestId === item.id : false,
-          })),
+          responseData.map((item) =>
+            item.id === highestId && editLatest
+              ? {
+                  title: "",
+                  details: "",
+                  done: false,
+                  editing: true,
+                  id: item.id,
+                }
+              : item,
+          ),
         );
       }
     } catch (error) {
@@ -42,13 +49,11 @@ function App() {
   };
 
   const setDone = (id, e) => {
-    console.log("setDone", id, e.target.checked);
     setData(
       data.map((item) =>
         item.id === id ? { ...item, done: e.target.checked } : item,
       ),
     );
-    console.log(getTodo(id));
     saveTodoContent(id, {
       title: getTodo(id).title,
       details: getTodo(id).details,
@@ -57,7 +62,7 @@ function App() {
   };
 
   const editTodo = (id, e) => {
-    if (e) e.preventDefault();
+    e.preventDefault();
     console.log("edit", id);
     setData(
       data.map((item) => (item.id === id ? { ...item, editing: true } : item)),
@@ -97,8 +102,7 @@ function App() {
   };
 
   const saveTodo = (id, e) => {
-    if (e) e.preventDefault();
-
+    e.preventDefault();
     saveTodoContent(id, {
       done: getTodo(id).done,
       title: getTodo(id).title,
@@ -184,6 +188,7 @@ function App() {
                     type="checkbox"
                     checked={item.done}
                     onChange={(e) => setDone(item.id, e)}
+                    disabled={item.editing}
                   ></input>
                   {item.editing ? (
                     <input
