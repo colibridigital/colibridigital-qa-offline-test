@@ -28,7 +28,7 @@ When all runs well, create automated tests (ideally in Behave, or Robot Framewor
 
 ### Frontend
 
-Create automated e2e tests (ideally in Cypress, or Jest) for frontend UI covering as many features and case scenarios as necessary to validate the app. Document the tests in a readme file.
+Create automated e2e tests (ideally in Cypress, or Jest) for frontend UI covering as many features and case scenarios as necessary to validate the app. Remember that the app is responsive for mobile devices. Document the tests in a readme file.
 
 ### GitHub
 
