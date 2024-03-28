@@ -6,11 +6,15 @@ function App() {
 
   const [data, setData] = useState([]);
 
-  const getTodos = async () => {
+  const getTodos = async (props) => {
     try {
       const response = await fetch(`${API}/items/`);
 
       const data = await response.json();
+
+      let highestId = -1;
+
+      data.forEach((item) => (highestId = Math.max(highestId, item.id)));
 
       console.log(data);
       if (data) {
@@ -18,7 +22,9 @@ function App() {
         setData(
           data.map((item) => ({
             ...item,
-            editing: false,
+            title: props?.editLatest ? "" : item.title,
+            details: props?.editLatest ? "" : item.details,
+            editing: props?.editLatest ? highestId === item.id : false,
           })),
         );
       }
@@ -46,7 +52,7 @@ function App() {
   };
 
   const editTodo = (id, e) => {
-    e.preventDefault();
+    if (e) e.preventDefault();
     console.log("edit", id);
     setData(
       data.map((item) => (item.id === id ? { ...item, editing: true } : item)),
@@ -120,43 +126,31 @@ function App() {
 
   const deleteTodo = (id, e) => {
     e.preventDefault();
-    console.log("delete", id);
-    if (
-      window.confirm(
-        `"${getTodo(id).title}" Are you sure you want to delete this todo?`,
-      ) === true
-    ) {
-      // Replace with BE action and reload
-      setData(data.filter((item) => item.id !== id));
-    }
+    fetch(`${API}/items/${id}`, {
+      method: "DELETE",
+    }).then(() => {
+      getTodos();
+    });
   };
 
   const addTodo = (e) => {
     e.preventDefault();
     console.log("addTodo");
 
-    // Replace with BE action and reload
-
-    let highestId = 0;
-
-    data.forEach((item) => {
-      highestId = Math.max(highestId, item.id);
-    });
-
-    const now = new Date();
-
-    setData([
-      ...data,
-      {
-        id: highestId + 1,
-        done: false,
-        editing: true,
-        title: "",
-        details: "",
-        created: String(now),
-        edited: String(now),
+    fetch(`${API}/items/create/item`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
       },
-    ]);
+      body: JSON.stringify({
+        done: false,
+        title: "title",
+        details: "details",
+        editing: true,
+      }),
+    }).then(() => {
+      getTodos({ editLatest: true });
+    });
   };
 
   return (
