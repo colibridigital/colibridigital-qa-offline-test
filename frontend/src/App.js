@@ -7,6 +7,7 @@ function App() {
   const defaultDetails = "Details...";
 
   const [data, setData] = useState([]);
+  const [editing, setEditing] = useState(false);
 
   const getTodos = async (editLatest) => {
     try {
@@ -69,6 +70,7 @@ function App() {
     setData(
       data.map((item) => (item.id === id ? { ...item, editing: true } : item)),
     );
+    setEditing(id);
   };
 
   const editTitle = (id, e) => {
@@ -110,12 +112,7 @@ function App() {
       title: getTodo(id).title,
       details: getTodo(id).details,
     });
-  };
-
-  const getNewId = (id) => {
-    // This will come from BE
-    console.log("getNewId", id);
-    return Math.max(...data.map((o) => o.id)) + 1;
+    setEditing(false);
   };
 
   const duplicateTodo = (id, e) => {
@@ -176,7 +173,7 @@ function App() {
                     type="checkbox"
                     checked={item.done}
                     onChange={(e) => setDone(item.id, e)}
-                    disabled={item.editing}
+                    disabled={item.editing || editing}
                   ></input>
                   {item.editing ? (
                     <input
@@ -229,17 +226,25 @@ function App() {
                       Save
                     </button>
                   ) : (
-                    <button onClick={(e) => editTodo(item.id, e)}>Edit</button>
+                    <button
+                      onClick={(e) => editTodo(item.id, e)}
+                      disabled={editing !== false && item.id !== editing}
+                    >
+                      Edit
+                    </button>
                   )}
 
                   <button
                     onClick={(e) => duplicateTodo(item.id, e)}
-                    disabled={item.editing}
+                    disabled={editing}
                   >
                     Duplicate
                   </button>
 
-                  <button onClick={(e) => deleteTodo(item.id, e)}>
+                  <button
+                    onClick={(e) => deleteTodo(item.id, e)}
+                    disabled={editing && item.id !== editing}
+                  >
                     Delete
                   </button>
                 </fieldset>
