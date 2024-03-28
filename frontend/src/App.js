@@ -22,9 +22,7 @@ function App() {
         (item) => (highestId = Math.max(highestId, item.id)),
       );
 
-      console.log(responseData);
       if (responseData) {
-        console.table(responseData);
         setData(
           responseData.map((item) =>
             item.id === highestId && editLatest
@@ -69,7 +67,6 @@ function App() {
 
   const editTodo = (id, e) => {
     e.preventDefault();
-    console.log("edit", id);
     setData(
       data.map((item) => (item.id === id ? { ...item, editing: true } : item)),
     );
@@ -78,7 +75,6 @@ function App() {
 
   const editTitle = (id, e) => {
     e.preventDefault();
-    console.log("editTitle", id, e.target.value);
     setData(
       data.map((item) =>
         item.id === id ? { ...item, title: e.target.value } : item,
@@ -88,7 +84,6 @@ function App() {
 
   const editDetails = (id, e) => {
     e.preventDefault();
-    console.log("editDetails", id, e.target.value);
     setData(
       data.map((item) =>
         item.id === id ? { ...item, details: e.target.value } : item,
@@ -121,7 +116,6 @@ function App() {
 
   const duplicateTodo = (id, e) => {
     e.preventDefault();
-    console.log("duplicate", id);
     setLoading(true);
     fetch(`${API}/items/duplicate/${id}`, {
       method: "POST",
@@ -142,7 +136,6 @@ function App() {
 
   const addTodo = (e) => {
     e.preventDefault();
-    console.log("addTodo");
     setLoading(true);
     fetch(`${API}/items/create/item`, {
       method: "POST",
