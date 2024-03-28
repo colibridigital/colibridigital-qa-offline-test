@@ -10,6 +10,16 @@ function App() {
   const [editing, setEditing] = useState(false);
   const [loading, setLoading] = useState(true);
 
+  const comapreId = (a, b) => {
+    if (a.id < b.id) {
+      return -1;
+    }
+    if (a.id > b.id) {
+      return 1;
+    }
+    return 0;
+  };
+
   const getTodos = async (editLatest) => {
     try {
       const response = await fetch(`${API}/items/`);
@@ -24,17 +34,19 @@ function App() {
 
       if (responseData) {
         setData(
-          responseData.map((item) =>
-            item.id === highestId && editLatest
-              ? {
-                  title: "",
-                  details: "",
-                  done: false,
-                  editing: true,
-                  id: item.id,
-                }
-              : item,
-          ),
+          responseData
+            .map((item) =>
+              item.id === highestId && editLatest
+                ? {
+                    title: "",
+                    details: "",
+                    done: false,
+                    editing: true,
+                    id: item.id,
+                  }
+                : item,
+            )
+            .sort(comapreId),
         );
       }
       setLoading(false);
@@ -201,10 +213,10 @@ function App() {
                 </fieldset>
 
                 <fieldset className="dates responsive">
-                  <p>
+                  {/* <p>
                     <span>ID: </span>
                     <span>{item.id}</span>
-                  </p>
+                  </p> */}
                   <p>
                     <span>Created: </span>
                     <span>{item.created}</span>
