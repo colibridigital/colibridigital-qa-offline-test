@@ -3,6 +3,8 @@ import "./App.scss";
 
 function App() {
   const API = "http://localhost:8000";
+  const defaultTitle = "What to do?";
+  const defaultDetails = "Details...";
 
   const [data, setData] = useState([]);
 
@@ -161,8 +163,8 @@ function App() {
       },
       body: JSON.stringify({
         done: false,
-        title: "title",
-        details: "details",
+        title: defaultTitle,
+        details: defaultDetails,
         editing: true,
       }),
     }).then(() => {
@@ -193,7 +195,7 @@ function App() {
                   {item.editing ? (
                     <input
                       type="text"
-                      placeholder="What should you do?"
+                      placeholder={defaultTitle}
                       value={item.title}
                       readOnly={!item.editing}
                       onChange={(e) => editTitle(item.id, e)}
@@ -206,7 +208,7 @@ function App() {
                 <fieldset className="details">
                   {item.editing ? (
                     <textarea
-                      placeholder="Some details..."
+                      placeholder={defaultDetails}
                       value={item.details}
                       onChange={(e) => editDetails(item.id, e)}
                     ></textarea>
