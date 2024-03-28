@@ -8,6 +8,7 @@ function App() {
 
   const [data, setData] = useState([]);
   const [editing, setEditing] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const getTodos = async (editLatest) => {
     try {
@@ -38,8 +39,10 @@ function App() {
           ),
         );
       }
+      setLoading(false);
     } catch (error) {
       console.error(error);
+      setLoading(false);
     }
   };
 
@@ -94,6 +97,7 @@ function App() {
   };
 
   const saveTodoContent = (id, content) => {
+    setLoading(true);
     fetch(`${API}/items/${id}`, {
       method: "PUT",
       headers: {
@@ -118,7 +122,7 @@ function App() {
   const duplicateTodo = (id, e) => {
     e.preventDefault();
     console.log("duplicate", id);
-
+    setLoading(true);
     fetch(`${API}/items/duplicate/${id}`, {
       method: "POST",
     }).then(() => {
@@ -128,6 +132,7 @@ function App() {
 
   const deleteTodo = (id, e) => {
     e.preventDefault();
+    setLoading(true);
     fetch(`${API}/items/${id}`, {
       method: "DELETE",
     }).then(() => {
@@ -138,7 +143,7 @@ function App() {
   const addTodo = (e) => {
     e.preventDefault();
     console.log("addTodo");
-
+    setLoading(true);
     fetch(`${API}/items/create/item`, {
       method: "POST",
       headers: {
@@ -164,7 +169,7 @@ function App() {
         </h1>
       </header>
       <main>
-        <ol>
+        <ol className={loading && "loading"}>
           {data.map((item, index) => (
             <li key={index}>
               <form className={`title ${item.done && "done"}`}>

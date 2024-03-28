@@ -157,6 +157,13 @@ ol {
   list-style-type: none;
   padding: 0;
   margin: 0;
+  transition: opacity 0.1s ease;
+
+  &.loading {
+    opacity: 0.75;
+    mix-blend-mode: luminosity;
+    pointer-events: none;
+  }
 
   li {
     margin: 0;
