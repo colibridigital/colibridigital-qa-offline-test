@@ -43,12 +43,17 @@ function App() {
 
   const setDone = (id, e) => {
     console.log("setDone", id, e.target.checked);
-    // Replace with BE action and reload
     setData(
       data.map((item) =>
         item.id === id ? { ...item, done: e.target.checked } : item,
       ),
     );
+    console.log(getTodo(id));
+    saveTodoContent(id, {
+      title: getTodo(id).title,
+      details: getTodo(id).details,
+      done: e.target.checked,
+    });
   };
 
   const editTodo = (id, e) => {
@@ -79,22 +84,25 @@ function App() {
     );
   };
 
-  const saveTodo = (id, e) => {
-    e.preventDefault();
-    console.log("save", id);
-
+  const saveTodoContent = (id, content) => {
     fetch(`${API}/items/${id}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({
-        done: getTodo(id).done,
-        title: getTodo(id).title,
-        details: getTodo(id).details,
-      }),
+      body: JSON.stringify(content),
     }).then(() => {
       getTodos();
+    });
+  };
+
+  const saveTodo = (id, e) => {
+    if (e) e.preventDefault();
+
+    saveTodoContent(id, {
+      done: getTodo(id).done,
+      title: getTodo(id).title,
+      details: getTodo(id).details,
     });
   };
 
