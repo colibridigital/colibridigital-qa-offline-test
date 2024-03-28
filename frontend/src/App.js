@@ -8,7 +8,7 @@ function App() {
 
   const [data, setData] = useState([]);
   const [editing, setEditing] = useState(false);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   const getTodos = async (editLatest) => {
     try {
