@@ -121,26 +121,12 @@ function App() {
   const duplicateTodo = (id, e) => {
     e.preventDefault();
     console.log("duplicate", id);
-    if (
-      window.confirm(`"${getTodo(id).title}" Duplicate this todo?`) === true
-    ) {
-      // Replace with BE action and reload
-      const newData = [];
 
-      const now = new Date();
-
-      data.forEach((item) => {
-        newData.push(item);
-        if (item.id === id)
-          newData.push({
-            ...item,
-            id: getNewId(id),
-            created: String(now),
-            edited: String(now),
-          });
-      });
-      setData(newData);
-    }
+    fetch(`${API}/items/duplicate/${id}`, {
+      method: "POST",
+    }).then(() => {
+      getTodos();
+    });
   };
 
   const deleteTodo = (id, e) => {
