@@ -162,7 +162,7 @@ function App() {
         </h1>
       </header>
       <main>
-        <ol className={loading && "loading"}>
+        <ol className={loading ? "loading" : undefined}>
           {data.map((item, index) => (
             <li key={index}>
               <form className={`title ${item.done && "done"}`}>
