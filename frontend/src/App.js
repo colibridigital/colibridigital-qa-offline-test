@@ -2,15 +2,17 @@ import React, { useState, useEffect } from "react";
 import "./App.scss";
 
 function App() {
+  const API = "http://localhost:8000";
+
   const [data, setData] = useState([]);
 
-  const makeAPICall = async () => {
+  const getTodos = async () => {
     try {
-      const response = await fetch("http://localhost:8000/items/", {
-        mode: "no-cors",
-      });
-      const { data } = await response.json();
+      const response = await fetch(`${API}/items/`);
 
+      const data = await response.json();
+
+      console.log(data);
       if (data) {
         console.log(data);
         setData(
@@ -20,13 +22,13 @@ function App() {
           })),
         );
       }
-    } catch (e) {
-      console.log(e);
+    } catch (error) {
+      console.error(error);
     }
   };
 
   useEffect(() => {
-    makeAPICall();
+    getTodos();
   }, []);
 
   const getTodo = (id) => {
