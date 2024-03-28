@@ -57,7 +57,7 @@ function App() {
   };
 
   useEffect(() => {
-    getTodos();
+    getTodos(); // eslint-disable-next-line
   }, []);
 
   const getTodo = (id) => {
