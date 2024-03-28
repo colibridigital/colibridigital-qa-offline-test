@@ -1,6 +1,8 @@
 # Available scripts
 
-Use node `v18.19.1`
+## Requirements
+
+- Node `v18.19.1`
 
 ### Install: `npm i`
 
