@@ -257,7 +257,11 @@ function App() {
             </li>
           ))}
         </ol>
-        <button onClick={(e) => addTodo(e)} className="add-todo">
+        <button
+          onClick={(e) => addTodo(e)}
+          className="add-todo"
+          disabled={loading}
+        >
           Add TODO
         </button>
       </main>
